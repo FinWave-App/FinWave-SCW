@@ -1,0 +1,23 @@
+stages:
+  - build
+  - publish
+
+build:
+  stage: build
+  image: gradle:jdk8-alpine
+
+  script:
+    - gradle build
+    - cp build/libs/*.jar ./
+
+  artifacts:
+    paths:
+      - SimpleConfigWorker-0.1.0.jar
+    expire_in: 1 day
+
+publish:
+  stage: publish
+  image: gradle:jdk8-alpine
+
+  script:
+    - gradle publish

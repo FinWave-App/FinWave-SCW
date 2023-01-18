@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+}
+
+group 'su.knst'
+version '0.1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.google.code.gson:gson:2.10.1'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+publishing {
+    repositories {
+        maven {
+            name 'GitLab'
+            url 'https://lab.knrg.su/api/v4/projects/28/packages/maven'
+            credentials(HttpHeaderCredentials) {
+                name = "Job-Token"
+                value = System.getenv("CI_JOB_TOKEN")
+            }
+            authentication {
+                header(HttpHeaderAuthentication)
+            }
+        }
+    }
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = 'scw'
+            //deploy jar vom Java
+            from components.java
+            //deploy arbitrary Zip file
+            artifact jar
+        }
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
