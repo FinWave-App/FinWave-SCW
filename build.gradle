@@ -34,9 +34,9 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             artifactId = 'scw'
-            //deploy jar vom Java
-            from components.java
-            //deploy arbitrary Zip file
+            groupId = project.group
+            version = project.version
+
             artifact jar
         }
     }
