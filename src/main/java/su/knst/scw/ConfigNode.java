@@ -69,7 +69,17 @@ public class ConfigNode extends ParamsContainer {
     }
 
     public <T> Optional<T> getAs(Class<T> tClass) {
-        return Optional.ofNullable(sourceElement == null ? null : G.GSON.fromJson(sourceElement, tClass));
+        Optional<T> result = Optional.empty();
+
+        if (sourceElement == null)
+            return result;
+
+        try {
+            result = Optional.ofNullable(G.GSON.fromJson(sourceElement, tClass));
+        }catch (Exception ignored) {
+        }
+
+        return result;
     }
 
     protected Map<String, String> valuesToMap() {

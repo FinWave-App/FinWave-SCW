@@ -26,7 +26,7 @@ public class SaveAndLoadTest {
         rootConfig.subNode("test2").setValue("bye", TEST_2);
         rootConfig.subNode("test2").setValue("number", UUID.randomUUID());
         rootConfig.subNode("test3").setAs(TEST_3);
-        //rootConfig.subNode("test4").subNode("subnode").setAs(new TestClass());
+        rootConfig.subNode("test4").subNode("subnode").setAs(new TestClass());
 
         rootConfig.save();
     }
@@ -37,17 +37,31 @@ public class SaveAndLoadTest {
         RootConfig rootConfig = new RootConfig(file);
         rootConfig.load();
 
-        System.out.println(Arrays.toString(
-                rootConfig.subNode("test3").getAs(TEST_3.getClass()).orElse(null)
+        System.out.println(Arrays.toString(rootConfig
+                .subNode("test3")
+                .getAs(TEST_3.getClass())
+                .orElse(null)
         ));
 
-        System.out.println(rootConfig.subNode("test4").subNode("subnode").getAs(TestClass.class).map(r -> r.mew).orElse("null"));
-
-        System.out.println(Arrays.toString(
-                rootConfig.subNode("test4").subNode("subnode").getAs(TestClass.class).map(r -> r.array).orElse(null))
+        System.out.println(rootConfig
+                .subNode("test4")
+                .subNode("subnode")
+                .getAs(TestClass.class)
+                .map(r -> r.mew).orElse("null")
         );
 
-        System.out.println(rootConfig.subNode("test4").subNode("subnode").getString("mew"));
+        System.out.println(Arrays.toString(rootConfig
+                .subNode("test4")
+                .subNode("subnode")
+                .getAs(TestClass.class)
+                .map(r -> r.array).orElse(null))
+        );
+
+        System.out.println(rootConfig
+                .subNode("test4")
+                .subNode("subnode")
+                .getString("mew")
+        );
 
         rootConfig.save();
     }

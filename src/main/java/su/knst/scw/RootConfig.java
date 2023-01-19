@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public class RootConfig extends ConfigNode {
-
     protected SimpleFileWorker fileWorker;
 
     public RootConfig(File file) throws IOException {
@@ -18,6 +17,9 @@ public class RootConfig extends ConfigNode {
 
     public void load() throws IOException {
         ConfigNode loaded = G.GSON.fromJson(fileWorker.readFromFile(), ConfigNode.class);
+
+        if (loaded == null)
+            return;
 
         this.subNodes = new LinkedHashMap<>(loaded.subNodesToMap());
         this.rawParams = new LinkedHashMap<>(loaded.valuesToMap());
