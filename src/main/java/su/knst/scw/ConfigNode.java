@@ -37,6 +37,12 @@ public class ConfigNode extends ParamsContainer {
 
     public void setAs(Object object) {
         sourceElement = G.GSON.toJsonTree(object);
+        clear();
+    }
+
+    public void clear() {
+        rawParams.clear();
+        subNodes.values().forEach(ConfigNode::clear);
     }
 
     public void setBinaryObject(String name, BinaryObject object) {

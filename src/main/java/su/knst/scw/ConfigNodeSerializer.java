@@ -12,7 +12,6 @@ public class ConfigNodeSerializer implements JsonSerializer<ConfigNode> {
     @Override
     public JsonElement serialize(ConfigNode src, Type typeOfSrc, JsonSerializationContext context) {
         JsonElement jsonElement = src.getSourceElement();
-
         JsonObject result;
 
         if (jsonElement != null) {
@@ -23,7 +22,6 @@ public class ConfigNodeSerializer implements JsonSerializer<ConfigNode> {
         }else {
             result = new JsonObject();
         }
-
 
         Map<String, String> values = src.valuesToMap();
         Map<String, ConfigNode> subNodes = src.subNodesToMap();
