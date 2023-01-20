@@ -78,7 +78,8 @@ rootConfig.save() // save changes
 someNode.getAs(TestClass.class).orElse(new TestClass()); // get object with values from node or default
 ```
 
-Architecturally, the node has a separate parameter with JsonElement type for storing an object inside itself
+Architecturally, the node has a separate parameter with JsonElement type for storing an object inside itself.
+
 Calling `someNode.setAs()` clear node and set JsonElement parameter.
 
 ### Edit Class-Node
