@@ -20,15 +20,13 @@ public class SaveAndLoadTest {
     public void save() throws IOException {
         File file = new File("test.conf");
 
-        RootConfig rootConfig = new RootConfig(file);
+        RootConfig rootConfig = new RootConfig(file, true);
 
         rootConfig.subNode("test").setValue("hi", TEST_1);
         rootConfig.subNode("test2").setValue("bye", TEST_2);
         rootConfig.subNode("test2").setValue("number", UUID.randomUUID());
         rootConfig.subNode("test3").setAs(TEST_3);
         rootConfig.subNode("test4").subNode("subnode").setAs(new TestClass());
-
-        rootConfig.save();
     }
 
     public void load() throws IOException {
@@ -62,8 +60,6 @@ public class SaveAndLoadTest {
                 .subNode("subnode")
                 .getString("mew")
         );
-
-        rootConfig.save();
     }
 
     @Test()

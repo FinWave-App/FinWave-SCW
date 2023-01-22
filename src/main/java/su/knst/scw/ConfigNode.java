@@ -6,12 +6,14 @@ import su.knst.scw.utils.BinaryUtils;
 import su.knst.scw.utils.ParamsContainer;
 import su.knst.scw.utils.gson.G;
 
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.*;
 
 public class ConfigNode extends ParamsContainer {
     protected Map<String, ConfigNode> subNodes;
     protected JsonElement sourceElement;
+    protected ConfigNode parent;
 
     public ConfigNode() {
         this(new LinkedHashMap<>(), new LinkedHashMap<>(), null);
@@ -24,31 +26,69 @@ public class ConfigNode extends ParamsContainer {
         this.sourceElement = sourceElement;
     }
 
+    public boolean autoSaveEnabled() {
+        return parent.autoSaveEnabled();
+    }
+
+    public ConfigNode save() {
+        parent.save();
+
+        return this;
+    }
+
+    protected ConfigNode init(ConfigNode parent) {
+        this.parent = parent;
+
+        return this;
+    }
+
     public ConfigNode subNode(String name) {
-        if (!subNodes.containsKey(name))
-            subNodes.put(name, new ConfigNode());
+        if (!subNodes.containsKey(name)) {
+            ConfigNode newNode = new ConfigNode();
+            newNode.init(this);
+
+            subNodes.put(name, newNode);
+        }
 
         return subNodes.get(name);
     }
 
-    public void setValue(String name, Object value) {
+    public ConfigNode setValue(String name, Object value) {
         this.rawParams.put(name, String.valueOf(value));
+
+        if (autoSaveEnabled())
+            save();
+
+        return this;
     }
 
-    public void setAs(Object object) {
+    public ConfigNode setAs(Object object) {
         sourceElement = G.GSON.toJsonTree(object);
         clear();
+
+        if (autoSaveEnabled())
+            save();
+
+        return this;
     }
 
-    public void clear() {
+    public ConfigNode clear() {
         rawParams.clear();
         subNodes.values().forEach(ConfigNode::clear);
+
+        return this;
     }
 
-    public void setBinaryObject(String name, BinaryObject object) {
+    public ConfigNode parent() {
+        return parent;
+    }
+
+    public ConfigNode setBinaryObject(String name, BinaryObject object) {
         ByteBuffer byteBuffer = object.save();
         String base64 = Base64.getEncoder().encodeToString(byteBuffer.array());
         setValue(name, base64);
+
+        return this;
     }
 
     public <T extends BinaryObject> Optional<T> getBinaryObject(String name, Class<T> tClass) {
