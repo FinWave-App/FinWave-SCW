@@ -10,7 +10,10 @@ public class SimpleFileWorker {
 
     public SimpleFileWorker(File target) throws TargetNotFileException, IOException {
         if (!target.exists()) {
-            target.getParentFile().mkdirs();
+            File parent = target.getParentFile();
+            if (parent != null)
+                target.getParentFile().mkdirs();
+
             target.createNewFile();
         }
 
