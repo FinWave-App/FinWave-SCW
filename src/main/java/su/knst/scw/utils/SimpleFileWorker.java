@@ -9,8 +9,10 @@ public class SimpleFileWorker {
     protected final File target;
 
     public SimpleFileWorker(File target) throws TargetNotFileException, IOException {
-        if (!target.exists())
+        if (!target.exists()) {
+            target.getParentFile().mkdirs();
             target.createNewFile();
+        }
 
         if (!target.isFile())
             throw new TargetNotFileException();
