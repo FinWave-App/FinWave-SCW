@@ -1,5 +1,6 @@
 package su.knst.scw.utils;
 
+import su.knst.scw.utils.exceptions.CantReadFromTargetException;
 import su.knst.scw.utils.exceptions.CantWriteToTargetException;
 import su.knst.scw.utils.exceptions.TargetNotFileException;
 
@@ -40,7 +41,7 @@ public class SimpleFileWorker {
 
     public String readFromFile(int bufferSize) throws IOException {
         if (!target.canRead())
-            throw new CantWriteToTargetException();
+            throw new CantReadFromTargetException();
 
         BufferedReader reader = new BufferedReader(new FileReader(target));
         StringBuilder builder = new StringBuilder();
