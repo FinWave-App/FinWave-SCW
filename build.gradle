@@ -3,41 +3,72 @@ plugins {
     id 'maven-publish'
 }
 
-group 'su.knst.scw'
-version '0.3.1'
+group 'app.finwave.scw'
+version '0.4.0'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'com.google.code.gson:gson:2.11.0'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 }
 
 publishing {
-    repositories {
-        maven {
-            name 'GitLab'
-            url 'https://lab.knrg.su/api/v4/projects/28/packages/maven'
-            credentials(HttpHeaderCredentials) {
-                name = "Job-Token"
-                value = System.getenv("CI_JOB_TOKEN")
-            }
-            authentication {
-                header(HttpHeaderAuthentication)
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            groupId = project.group
+            artifactId = 'finwave-scw'
+            version = project.version
+
+            pom {
+                name = 'FinWaveSCW'
+                description = 'Java library that allows to easily work with configuration files in JSON format'
+                url = 'https://github.com/FinWave-App/FinWave-SCW'
+
+                licenses {
+                    license {
+                        name = 'MIT license'
+                        url = 'https://raw.githubusercontent.com/FinWave-App/FinWave-SCW/main/LICENSE'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = 'knst'
+                        name = 'isKONSTANTIN'
+                        email = 'me@knst.su'
+                    }
+                }
+
+                scm {
+                    connection = 'scm:git:git://github.com/FinWave-App/FinWave-SCW.git'
+                    developerConnection = 'scm:git:ssh://github.com:FinWave-App/FinWave-SCW.git'
+                    url = 'https://github.com/FinWave-App/FinWave-SCW'
+                }
             }
         }
     }
-    publications {
-        mavenJava(MavenPublication) {
-            artifactId = 'scw'
-            groupId = project.group
-            version = project.version
-
-            artifact jar
+    repositories {
+        maven {
+            name = "FinWaveNexus"
+            url = "https://nexus.finwave.app/repository/maven-public"
+            credentials {
+                username = System.getenv("NEXUS_DEPLOY_USERNAME")
+                password = System.getenv("NEXUS_DEPLOY_PASSWORD")
+            }
+        }
+        maven {
+            name = "GitHubPackages"
+            url = "https://maven.pkg.github.com/finwave-app/finwave-scw"
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
         }
     }
 }

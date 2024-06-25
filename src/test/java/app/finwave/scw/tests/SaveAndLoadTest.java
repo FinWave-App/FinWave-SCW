@@ -1,13 +1,15 @@
-package su.knst.scw.tests;
+package app.finwave.scw.tests;
 
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
-import su.knst.scw.RootConfig;
+import app.finwave.scw.RootConfig;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SaveAndLoadTest {
 
@@ -35,31 +37,30 @@ public class SaveAndLoadTest {
         RootConfig rootConfig = new RootConfig(file);
         rootConfig.load();
 
-        System.out.println(Arrays.toString(rootConfig
+        String[] loadedTest3 = rootConfig
                 .subNode("test3")
                 .getAs(TEST_3.getClass())
-                .orElse(null)
-        ));
+                .orElse(null);
 
-        System.out.println(rootConfig
+        assertNotNull(loadedTest3);
+        assertArrayEquals(TEST_3, loadedTest3);
+
+        TestClass loadedTestClass = rootConfig
                 .subNode("test4")
                 .subNode("subnode")
                 .getAs(TestClass.class)
-                .map(r -> r.mew).orElse("null")
-        );
+                .orElse(null);
+        assertNotNull(loadedTestClass);
+        assertEquals("Hi", loadedTestClass.mew);
+        assertArrayEquals(new String[]{"A1", "A2", "A3"}, loadedTestClass.array);
 
-        System.out.println(Arrays.toString(rootConfig
+        Optional<String> loadedMew = rootConfig
                 .subNode("test4")
                 .subNode("subnode")
-                .getAs(TestClass.class)
-                .map(r -> r.array).orElse(null))
-        );
+                .getString("mew");
 
-        System.out.println(rootConfig
-                .subNode("test4")
-                .subNode("subnode")
-                .getString("mew")
-        );
+        assertTrue(loadedMew.isPresent());
+        assertEquals("Hi", loadedMew.get());
     }
 
     @Test()

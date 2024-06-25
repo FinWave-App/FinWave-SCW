@@ -1,11 +1,10 @@
-package su.knst.scw;
+package app.finwave.scw;
 
-import su.knst.scw.utils.SimpleFileWorker;
-import su.knst.scw.utils.gson.G;
+import app.finwave.scw.utils.SimpleFileWorker;
+import app.finwave.scw.utils.gson.G;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public class RootConfig extends ConfigNode {

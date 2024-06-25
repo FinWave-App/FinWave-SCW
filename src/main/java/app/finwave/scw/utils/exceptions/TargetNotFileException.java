@@ -1,4 +1,4 @@
-package su.knst.scw.utils.exceptions;
+package app.finwave.scw.utils.exceptions;
 
 import java.io.IOException;
 

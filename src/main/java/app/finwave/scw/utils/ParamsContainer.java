@@ -1,4 +1,4 @@
-package su.knst.scw.utils;
+package app.finwave.scw.utils;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

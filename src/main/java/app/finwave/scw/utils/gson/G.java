@@ -1,11 +1,11 @@
-package su.knst.scw.utils.gson;
+package app.finwave.scw.utils.gson;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import su.knst.scw.ConfigNode;
-import su.knst.scw.RootConfig;
-import su.knst.scw.ConfigNodeDeserializer;
-import su.knst.scw.ConfigNodeSerializer;
+import app.finwave.scw.ConfigNode;
+import app.finwave.scw.RootConfig;
+import app.finwave.scw.ConfigNodeDeserializer;
+import app.finwave.scw.ConfigNodeSerializer;
 
 public class G {
     public static final Gson GSON = new GsonBuilder()

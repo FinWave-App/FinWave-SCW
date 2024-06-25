@@ -1,12 +1,10 @@
-package su.knst.scw;
+package app.finwave.scw;
 
+import app.finwave.scw.utils.BinaryObject;
+import app.finwave.scw.utils.gson.G;
 import com.google.gson.JsonElement;
-import su.knst.scw.utils.BinaryObject;
-import su.knst.scw.utils.BinaryUtils;
-import su.knst.scw.utils.ParamsContainer;
-import su.knst.scw.utils.gson.G;
+import app.finwave.scw.utils.ParamsContainer;
 
-import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.*;
 

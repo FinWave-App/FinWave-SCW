@@ -1,8 +1,8 @@
-package su.knst.scw.utils;
+package app.finwave.scw.utils;
 
-import su.knst.scw.utils.exceptions.CantReadFromTargetException;
-import su.knst.scw.utils.exceptions.CantWriteToTargetException;
-import su.knst.scw.utils.exceptions.TargetNotFileException;
+import app.finwave.scw.utils.exceptions.CantReadFromTargetException;
+import app.finwave.scw.utils.exceptions.CantWriteToTargetException;
+import app.finwave.scw.utils.exceptions.TargetNotFileException;
 
 import java.io.*;
 

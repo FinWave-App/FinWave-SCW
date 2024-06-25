@@ -2,8 +2,9 @@
 This is a library that allows to easily work with configuration files in JSON format
 
 <!-- TOC -->
-* [Simple Config Worker (SCW)](#simple-config-worker--scw-)
-  * [Download (Gradle)](#download--gradle-)
+* [Simple Config Worker (SCW)](#simple-config-worker-scw-)
+  * [Install](#install)
+    * [Gradle](#gradle)
   * [Usage](#usage)
     * [Save](#save)
     * [Load And Overwrite](#load-and-overwrite)
@@ -12,21 +13,19 @@ This is a library that allows to easily work with configuration files in JSON fo
   * [Problems And Limitations](#problems-and-limitations)
 <!-- TOC -->
 
-## Download (Gradle)
+## Install
+### Gradle
 
-```
+```gradle
 repositories {
     mavenCentral()
-
-    // SCW
     maven {
-        url 'https://lab.knrg.su/api/v4/projects/28/packages/maven'
+        url "https://nexus.finwave.app/repository/maven-public"
     }
 }
 
 dependencies {
-    implementation 'com.google.code.gson:gson:2.10.1'
-    implementation "su.knst.scw:scw:0.2.2"
+    implementation 'app.finwave.api:finwave-scw:0.4.0'
 }
 ```
 

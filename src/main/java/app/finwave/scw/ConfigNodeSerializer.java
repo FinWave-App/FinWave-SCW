@@ -1,4 +1,4 @@
-package su.knst.scw;
+package app.finwave.scw;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;

@@ -1,4 +1,4 @@
-package su.knst.scw.utils;
+package app.finwave.scw.utils;
 
 import java.nio.ByteBuffer;
 
