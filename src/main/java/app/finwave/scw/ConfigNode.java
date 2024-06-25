@@ -7,6 +7,7 @@ import app.finwave.scw.utils.ParamsContainer;
 
 import java.nio.ByteBuffer;
 import java.util.*;
+import java.util.function.Supplier;
 
 public class ConfigNode extends ParamsContainer {
     protected Map<String, ConfigNode> subNodes;
@@ -124,6 +125,18 @@ public class ConfigNode extends ParamsContainer {
         }
 
         return result;
+    }
+
+    public <T> T getOrSetAs(Class<T> tClass, Supplier<T> supplier) {
+        Optional<T> result = getAs(tClass);
+
+        if (result.isEmpty()) {
+            T newObject = supplier.get();
+            result = Optional.of(newObject);
+            setAs(newObject);
+        }
+
+        return result.get();
     }
 
     protected Map<String, String> valuesToMap() {
