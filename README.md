@@ -25,7 +25,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'app.finwave.api:finwave-scw:0.4.0'
+    implementation 'app.finwave.scw:finwave-scw:0.4.0'
 }
 ```
 
